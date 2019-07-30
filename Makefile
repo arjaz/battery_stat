@@ -1,5 +1,5 @@
 CXX=g++
-CFLAGS=-std=c++17 -lstdc++fs
+CFLAGS=-std=c++17 -lstdc++fs -Wall -Werror
 TARGET=battery_stat
 
 all: main

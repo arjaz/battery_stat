@@ -2,7 +2,7 @@
 #include <fstream>
 #include <filesystem>
 #include <vector>
-#include <string>
+#include <string_view>
 
 int get_int_from_file(std::filesystem::path path) {
     std::ifstream file(path);
@@ -19,7 +19,7 @@ struct options {
     bool percentage{true};
 };
 
-struct options get_options(std::vector<std::string> const &args) {
+struct options get_options(std::vector<std::string_view> const &args) {
     options opt;
     for (auto const &i : args) {
         if (i == "-h")
@@ -32,11 +32,11 @@ struct options get_options(std::vector<std::string> const &args) {
 
 int main(int argc, char *argv[]) {
     namespace fs = std::filesystem;
-    std::vector<std::string> args(argv, argv+argc);
+    std::vector<std::string_view> args(argv, argv+argc);
     options opt = get_options(args);
 
     if (opt.exit) {
-        std::string help = ""
+        std::string_view help = ""
             "This application is intended to provide information about the user's battery.\n"
             "\n"
             "Available options:\n"
