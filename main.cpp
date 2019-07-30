@@ -37,7 +37,8 @@ int main(int argc, char *argv[]) {
 
     if (opt.exit) {
         std::string help = ""
-            "This application is intended to provide information about the user's battery."
+            "This application is intended to provide information about the user's battery.\n"
+            "\n"
             "Available options:\n"
             "\t-h\tdisplay this message and exit\n"
             "\t-a\tdisplay voltage instead of percentage\n";
