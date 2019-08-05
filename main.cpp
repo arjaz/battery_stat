@@ -11,20 +11,20 @@ int main(int argc, char *argv[]) {
     options opt = get_options(args);
 
     if (opt.help) {
-        std::string_view help = ""
-            "This application is intended to provide information about the user's battery.\n"
-            "\n"
-            "Available options:\n"
-            "\t-h\tdisplay this message and exit\n"
-            "\t-p\tdisplay percentage\n"
-            "\t-u\tdisplay units\n"
-            "\t-s\tdisplay status of battery\n";
-        std::cout << help;
+        std::cout << opt.help_msg;
         return 0;
     }
 
     BatStat battery_stat;
 
+    if (opt.battery) {
+        if (battery_stat.setBattery(opt.battery_name)){
+            std::cout << "Battery was changed to " << opt.battery_name << std::endl;
+        } else {
+            std::cerr << "Battery \"" << opt.battery_name << "\" could not be identified" << std::endl;
+            return 1;
+        }
+    }
     if (opt.status) {
         std::cout << battery_stat.getStatus() << std::endl;
     }
