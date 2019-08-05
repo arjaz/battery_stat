@@ -1,60 +1,67 @@
 #include <iostream>
-#include <fstream>
-#include <filesystem>
-#include <vector>
+#include <set>
 #include <string_view>
 
-int get_int_from_file(std::filesystem::path path) {
-    std::ifstream file(path);
-    if (!file) {
-        return -1;
-    }
-    int result = 0;
-    file >> result;
-    return result;
-}
+#include "BatStat.h"
 
 struct options {
-    bool exit{false};
-    bool percentage{true};
+    bool help{false};
+    bool percentage{false};
+    bool units{false};
+    bool status{false};
 };
 
-struct options get_options(std::vector<std::string_view> const &args) {
+struct options get_options(std::set<std::string_view> const &args) {
     options opt;
-    for (auto const &i : args) {
-        if (i == "-h")
-            opt.exit = true;
-        if (i == "-a")
-            opt.percentage = false;
+
+    if (args.size() == 1) {
+        opt.help = true;
+        return opt;
+    }
+
+    if (args.find("-h") != args.end()) {
+        opt.help = true;
+    }
+    if (args.find("-u") != args.end()) {
+        opt.units = true;
+    }
+    if (args.find("-p") != args.end()) {
+        opt.percentage = true;
+    }
+    if (args.find("-s") != args.end()) {
+        opt.status = true;
     }
     return opt;
 }
 
 int main(int argc, char *argv[]) {
     namespace fs = std::filesystem;
-    std::vector<std::string_view> args(argv, argv+argc);
+    std::set<std::string_view> args(argv, argv+argc);
     options opt = get_options(args);
 
-    if (opt.exit) {
+    if (opt.help) {
         std::string_view help = ""
             "This application is intended to provide information about the user's battery.\n"
             "\n"
             "Available options:\n"
             "\t-h\tdisplay this message and exit\n"
-            "\t-a\tdisplay voltage instead of percentage\n";
+            "\t-p\tdisplay percentage\n"
+            "\t-u\tdisplay units\n"
+            "\t-s\tdisplay status of battery\n";
         std::cout << help;
         return 0;
     }
 
-    fs::path bat_dir = "/sys/class/power_supply/BAT0";
+    BatStat battery_stat;
 
-    int charge_current = get_int_from_file(bat_dir / "charge_now");
-    int charge_full = get_int_from_file(bat_dir / "charge_full");
-
+    if (opt.status) {
+        std::cout << battery_stat.getStatus() << std::endl;
+    }
     if (opt.percentage) {
-        std::cout << 100 * float(charge_current) / float(charge_full) << "%" << std::endl;
-    } else {
-        std::cout << charge_current << "/" << charge_full << std::endl;
+        std::cout << 100 * battery_stat.getPercentage() << "%" << std::endl;
+    }
+    if (opt.units) {
+        std::cout << battery_stat.getCurrentCharge() << "/" << battery_stat.getMaxCharge() << std::endl;
     }
 
     return 0;

@@ -1,3 +1,4 @@
 battery_stat
 *.out
 *.o
+.qmake.stash
