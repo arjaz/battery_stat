@@ -20,6 +20,7 @@ public:
     int getMaxCharge();
     double getPercentage();
     std::string getStatus();
+    bool setBattery(std::filesystem::path bat);
 };
 
 #endif /* BATSTAT_H */

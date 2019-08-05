@@ -52,9 +52,11 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = BatStat.cpp \
+SOURCES       = options.cpp \
+		BatStat.cpp \
 		main.cpp 
-OBJECTS       = BatStat.o \
+OBJECTS       = options.o \
+		BatStat.o \
 		main.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -255,7 +257,9 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		battery_stat.pro BatStat.h BatStat.cpp \
+		battery_stat.pro BatStat.h \
+		options.h options.cpp \
+		BatStat.cpp \
 		main.cpp
 QMAKE_TARGET  = battery_stat
 DESTDIR       = 
@@ -684,8 +688,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents BatStat.h $(DISTDIR)/
-	$(COPY_FILE) --parents BatStat.cpp main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents BatStat.h options.h $(DISTDIR)/
+	$(COPY_FILE) --parents options.cpp BatStat.cpp main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -733,10 +737,14 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
+options.o: options.cpp options.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o options.o options.cpp
+
 BatStat.o: BatStat.cpp BatStat.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BatStat.o BatStat.cpp
 
-main.o: main.cpp BatStat.h
+main.o: main.cpp BatStat.h \
+		options.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 ####### Install

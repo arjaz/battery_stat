@@ -1,42 +1,13 @@
 #include <iostream>
-#include <set>
+#include <vector>
 #include <string_view>
 
 #include "BatStat.h"
-
-struct options {
-    bool help{false};
-    bool percentage{false};
-    bool units{false};
-    bool status{false};
-};
-
-struct options get_options(std::set<std::string_view> const &args) {
-    options opt;
-
-    if (args.size() == 1) {
-        opt.help = true;
-        return opt;
-    }
-
-    if (args.find("-h") != args.end()) {
-        opt.help = true;
-    }
-    if (args.find("-u") != args.end()) {
-        opt.units = true;
-    }
-    if (args.find("-p") != args.end()) {
-        opt.percentage = true;
-    }
-    if (args.find("-s") != args.end()) {
-        opt.status = true;
-    }
-    return opt;
-}
+#include "options.h"
 
 int main(int argc, char *argv[]) {
     namespace fs = std::filesystem;
-    std::set<std::string_view> args(argv, argv+argc);
+    std::vector<std::string_view> args(argv, argv+argc);
     options opt = get_options(args);
 
     if (opt.help) {

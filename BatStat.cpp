@@ -47,3 +47,11 @@ std::string BatStat::getStatus() {
     std::string result = get_str_from_file(dir / bat / "status");
     return result;
 }
+
+bool BatStat::setBattery(std::filesystem::path bat) {
+    if (std::filesystem::exists(dir / bat)) {
+        this->bat = bat;
+        return true;
+    }
+    return false;
+}
