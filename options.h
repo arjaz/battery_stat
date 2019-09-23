@@ -14,6 +14,7 @@ struct options {
         "\t-p\tdisplay percentage\n"
         "\t-u\tdisplay units\n"
         "\t-s\tdisplay status of battery\n"
+        "\t-b\tspecify battery\n"
     };
     bool percentage{false};
     bool units{false};
