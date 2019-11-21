@@ -7,3 +7,4 @@ compile_commands.json
 cmake_install.cmake
 .ccls
 Makefile
+install_manifest.txt

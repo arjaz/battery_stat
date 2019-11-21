@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(tool_dest, "bin")
+
 add_executable(
     ${PROJECT_NAME}
     src/BatStat.cpp
@@ -23,3 +25,5 @@ add_custom_command(TARGET ${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION "bin")

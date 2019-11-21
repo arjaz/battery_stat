@@ -10,11 +10,13 @@ std::string_view const options_t::help_msg = ""
         "This application is intended to provide information about the user's battery.\n"
         "\n"
         "Available options:\n"
-        "\t-h\tdisplay this message and exit\n"
-        "\t-p\tdisplay percentage\n"
-        "\t-u\tdisplay units\n"
-        "\t-s\tdisplay status of battery\n"
-        "\t-b\tspecify battery\n";
+        "\t--help\t\t-h\tdisplay this message and exit\n"
+        "\t--version\t-v\tdisplay version and time stamp\n"
+        "\t--percentage\t-p\tdisplay rounded percentage\n"
+        "\t--long\t\t-l\tdisplay percentage\n"
+        "\t--units\t\t-u\tdisplay units\n"
+        "\t--status\t-s\tdisplay status of battery\n"
+        "\t--battery\t-b\tspecify battery\n";
 
 struct options_t get_options(int argc, char **argv) {
     options_t opt;
@@ -41,21 +43,27 @@ struct options_t get_options(int argc, char **argv) {
             break;
         case 'v':
             opt.version = true;
+            opt.empty = false;
             break;
         case 'p':
             opt.percentage = true;
+            opt.empty = false;
             break;
         case 'l':
             opt.long_percentage = true;
+            opt.empty = false;
             break;
         case 's':
             opt.status = true;
+            opt.empty = false;
             break;
         case 'u':
             opt.units = true;
+            opt.empty = false;
             break;
         case 'b':
             opt.battery = optarg;
+            opt.empty = false;
             break;
         default:
             break;

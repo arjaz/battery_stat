@@ -7,7 +7,7 @@
 int main(int argc, char **argv) {
     options_t opt = get_options(argc, argv);
 
-    if (opt.help) {
+    if (opt.help || opt.empty) {
         std::cout << opt.help_msg;
         return 0;
     }

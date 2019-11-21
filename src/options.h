@@ -4,6 +4,7 @@
 #include <string_view>
 
 struct options_t {
+    bool empty{true};
     bool help{false};
     bool version{false};
     static std::string_view const help_msg;
