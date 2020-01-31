@@ -6,5 +6,6 @@ CMakeCache.txt
 compile_commands.json
 cmake_install.cmake
 .ccls
+.ccls-cache
 Makefile
 install_manifest.txt

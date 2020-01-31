@@ -1,7 +1,7 @@
 #ifndef GIT_VERSION
 #define GIT_VERSION
 
-#define GIT_REVISION "c4ac9e1"
-#define BUILD_TIMESTAMP "2019-11-22T00:22:45"
+#define GIT_REVISION "9bafee5"
+#define BUILD_TIMESTAMP "2019-11-23T22:17:25"
 
 #endif /* ifndef GIT_VERSION */

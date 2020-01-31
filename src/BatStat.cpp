@@ -1,8 +1,8 @@
 #include "BatStat.h"
 
 #include <filesystem>
-#include <string>
 #include <fstream>
+#include <string>
 
 BatStat::BatStat() = default;
 BatStat::~BatStat() = default;

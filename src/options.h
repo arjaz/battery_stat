@@ -18,4 +18,3 @@ struct options_t {
 struct options_t get_options(int argc, char **argv);
 
 #endif
-
